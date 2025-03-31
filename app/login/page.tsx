@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Routes } from "@/constants/routes";
 
 export default function Login() {
   return (
@@ -29,7 +32,7 @@ export default function Login() {
                     <Input
                       id="email"
                       type="email"
-                      placeholder="m@example.com"
+                      placeholder="email@example.com"
                       autoComplete="off"
                       required
                     />
@@ -49,15 +52,18 @@ export default function Login() {
                   <Button type="submit" className="w-full">
                     Login
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  {/* <Button variant="outline" className="w-full">
                     Login with Google
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className="mt-4 text-center text-sm">
                   Don&apos;t have an account?{" "}
-                  <a href="#" className="underline underline-offset-4">
-                    Sign up
-                  </a>
+                  <Link
+                    className="underline underline-offset-4"
+                    href={Routes.REGISTER}
+                  >
+                    Register
+                  </Link>
                 </div>
               </form>
             </CardContent>
