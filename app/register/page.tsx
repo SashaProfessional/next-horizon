@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -31,7 +33,6 @@ export default function Register() {
                       <Input
                         id="first-name"
                         type="text"
-                        placeholder="First Name"
                         autoComplete="off"
                         required
                       />
@@ -41,7 +42,6 @@ export default function Register() {
                       <Input
                         id="last-name"
                         type="text"
-                        placeholder="Last Name"
                         autoComplete="off"
                         required
                       />
@@ -71,11 +71,23 @@ export default function Register() {
                   </div>
                   <div className="flex items-center space-x-2">
                     <Checkbox id="terms" />
-                    <label
-                      htmlFor="terms"
-                      className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    >
-                      I accept the Terms of Use and Privacy Policy
+                    <label htmlFor="terms" className="text-sm font-medium">
+                      I accept the&nbsp;
+                      <Link
+                        href={"https://okfn.org/en/terms-of-use/"}
+                        className="underline"
+                      >
+                        Terms of Use
+                      </Link>
+                      &nbsp;and&nbsp;
+                      <Link
+                        href={
+                          "https://www.pwc.com.au/about-us/social-impact/Privacy-Policy-Template.docx.pdf"
+                        }
+                        className="underline"
+                      >
+                        Privacy Policy
+                      </Link>
                     </label>
                   </div>
                   <Button type="submit" className="w-full">
