@@ -9,7 +9,7 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    router.replace(Routes.CONTENT);
+    router.replace(Routes.DASHBOARD);
   }, []);
 
   return null;

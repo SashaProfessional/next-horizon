@@ -9,11 +9,13 @@ export default function FloatingDevPanel() {
   const pathname = usePathname();
 
   return (
-    <div className="fixed top-4 left-4 flex gap-4">
+    <div className="fixed top-18 left-4 flex flex-col gap-2">
       {Object.keys(Routes).map((key) => {
         const route = Routes[key as keyof typeof Routes];
-        const buttonText =
-          key.charAt(0).toUpperCase() + key.slice(1).toLowerCase();
+        const buttonText = key
+          .toLowerCase()
+          .replace("_", " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase());
         const isDisabled = pathname === route;
 
         return (
@@ -24,13 +26,13 @@ export default function FloatingDevPanel() {
           >
             <Button
               disabled={isDisabled}
-              className={isDisabled ? "" : "cursor-pointer"}
+              className={"bg-orange-700 hover:bg-orange-900 hover:px-8" + (isDisabled ? "" : " cursor-pointer")}
               onClick={(e) => {
                 if (isDisabled) {
                   e.preventDefault();
                 }
 
-                e.stopPropagation()
+                e.stopPropagation();
               }}
             >
               {buttonText}

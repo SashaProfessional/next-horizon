@@ -41,7 +41,7 @@ export default function Login() {
                     <div className="flex items-center">
                       <Label htmlFor="password">Password</Label>
                       <a
-                        href="#"
+                        href={Routes.RESET_PASSWORD}
                         className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                       >
                         Forgot your password?
