@@ -4,6 +4,8 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { Loader2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -17,6 +19,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ErrorMessage } from "@/components/ErrorMessage";
 import { VALIDATION_REGISTRATION_SCHEMA } from "@/lib/validation-registration-schema";
+import { Routes } from "@/constants/routes";
 
 export default function Register() {
   const {
@@ -28,21 +31,51 @@ export default function Register() {
     resolver: zodResolver(VALIDATION_REGISTRATION_SCHEMA),
   });
 
-  const onSubmit = async (data: unknown) => {
-    await new Promise((resolve, reject) =>
-      setTimeout(() => {
-        reject(null);
-      }, 2000)
-    ).catch(() => {
-      setError("email", {
-        type: "manual",
-        message: "Email is already taken",
+  const router = useRouter();
+
+  const onSubmit = async (data: any) => {
+    try {
+      await new Promise((resolve, reject) =>
+        setTimeout(() => {
+          reject(null);
+        }, 2000)
+      );
+      
+      const res = await fetch("/api/auth/register", {
+        method: "POST",
+        body: JSON.stringify(data),
       });
+
+      if (!res.ok) {
+        const errorData = await res.json();
+        setError("email", {
+          type: "manual",
+          message: errorData.error,
+        });
+        
+        return;
+      }
+
+      const signInRes = await signIn("credentials", {
+        email: data.email,
+        password: data.password,
+        redirect: false,
+      });
+
+      if (signInRes?.ok) {
+        router.push(Routes.DASHBOARD);
+      } else {
+        setError("password", {
+          type: "manual",
+          message: "Failed to log in",
+        });
+      }
+    } catch (error: any) {
       setError("terms", {
         type: "manual",
-        message: "Network error. Please check your internet connection.",
+        message: error ?? "Network error. Please try again later.",
       });
-    });
+    }
   };
 
   return (

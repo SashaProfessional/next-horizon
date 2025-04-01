@@ -1,4 +1,9 @@
+"use client";
+
+import { useState } from "react";
+import { signIn } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,8 +16,31 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Routes } from "@/constants/routes";
+import { ErrorMessage } from "@/components/ErrorMessage";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const router = useRouter();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const res = await signIn("credentials", {
+      redirect: false,
+      email,
+      password,
+    });
+
+    if (res?.ok) {
+      router.push(Routes.DASHBOARD);
+    } else {
+      setError(res?.error || "Authentication error. Please try again.");
+    }
+  };
+
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="w-full max-w-sm">
@@ -25,7 +53,7 @@ export default function Login() {
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
@@ -33,6 +61,8 @@ export default function Login() {
                       id="email"
                       type="email"
                       placeholder="email@example.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                       autoComplete="off"
                       required
                     />
@@ -47,14 +77,18 @@ export default function Login() {
                         Forgot your password?
                       </a>
                     </div>
-                    <Input id="password" type="password" required />
+                    <Input
+                      id="password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
                   </div>
+                  <ErrorMessage message={error} />
                   <Button type="submit" className="w-full">
                     Login
                   </Button>
-                  {/* <Button variant="outline" className="w-full">
-                    Login with Google
-                  </Button> */}
                 </div>
                 <div className="mt-4 text-center text-sm">
                   Don&apos;t have an account?{" "}
