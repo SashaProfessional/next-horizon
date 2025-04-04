@@ -37,7 +37,7 @@ export default function Register() {
     try {
       await new Promise((resolve, reject) =>
         setTimeout(() => {
-          reject(null);
+          resolve(null);
         }, 2000)
       );
       

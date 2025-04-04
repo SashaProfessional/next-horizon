@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Routes } from "@/constants/routes";
+import { CHART_DATA } from "@/mocks/chart-data";
 
 ChartJS.register(
   CategoryScale,
@@ -34,49 +35,6 @@ ChartJS.register(
   Legend,
   Filler
 );
-
-const data = {
-  labels: [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ],
-  datasets: [
-    {
-      label: "Sales",
-      data: [65, 59, 80, 81, 56, 55, 40, 80, 50, 60, 45, 70],
-      fill: true,
-      backgroundColor: "rgba(75, 192, 192, 0.2)", // Цвет под линией
-      borderColor: "rgb(75, 192, 192)",
-      borderWidth: 2,
-    },
-    {
-      label: "User Growth",
-      data: [30, 35, 45, 40, 42, 50, 55, 60, 58, 62, 65, 70], // Уменьшены значения
-      fill: true,
-      backgroundColor: "rgba(153, 102, 255, 0.2)", // Цвет под линией
-      borderColor: "rgb(153, 102, 255)",
-      borderWidth: 2,
-    },
-    {
-      label: "Revenue",
-      data: [35, 40, 50, 45, 60, 65, 70, 75, 80, 90, 100, 110],
-      fill: true,
-      backgroundColor: "rgba(255, 159, 64, 0.2)", // Цвет под линией
-      borderColor: "rgb(255, 159, 64)",
-      borderWidth: 2,
-    },
-  ],
-};
 
 export default function Dashboard() {
   return (
@@ -115,7 +73,7 @@ export default function Dashboard() {
       <div className="flex flex-col items-center justify-center min-h-screen bg-background">
         <div className="w-full max-w-7xl p-4">
           <div className="flex justify-center">
-            <Line data={data} />
+            <Line data={CHART_DATA} />
           </div>
         </div>
       </div>

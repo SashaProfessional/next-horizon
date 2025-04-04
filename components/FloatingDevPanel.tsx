@@ -1,12 +1,14 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 import { Button } from "@/components/ui/button";
 import { Routes } from "@/constants/routes";
 
 export default function FloatingDevPanel() {
   const pathname = usePathname();
+  const { status } = useSession();
 
   return (
     <div className="fixed top-18 left-4 flex flex-col gap-2">
@@ -40,6 +42,7 @@ export default function FloatingDevPanel() {
           </Link>
         );
       })}
+      <div>{status}</div>
     </div>
   );
 }

@@ -1,0 +1,42 @@
+export const CHART_DATA = {
+    labels: [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ],
+    datasets: [
+      {
+        label: "Sales",
+        data: [65, 59, 80, 81, 56, 55, 40, 80, 50, 60, 45, 70],
+        fill: true,
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        borderColor: "rgb(75, 192, 192)",
+        borderWidth: 2,
+      },
+      {
+        label: "User Growth",
+        data: [30, 35, 45, 40, 42, 50, 55, 60, 58, 62, 65, 70],
+        fill: true,
+        backgroundColor: "rgba(153, 102, 255, 0.2)",
+        borderColor: "rgb(153, 102, 255)",
+        borderWidth: 2,
+      },
+      {
+        label: "Revenue",
+        data: [35, 40, 50, 45, 60, 65, 70, 75, 80, 90, 100, 110],
+        fill: true,
+        backgroundColor: "rgba(255, 159, 64, 0.2)",
+        borderColor: "rgb(255, 159, 64)",
+        borderWidth: 2,
+      },
+    ],
+  };
