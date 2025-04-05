@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import { signOut } from "next-auth/react";
 
 import { Routes } from "@/constants/routes";
 
@@ -10,17 +11,19 @@ export default function Logout() {
   const router = useRouter();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoggingOut(false);
-    }, 3000);
+    let reditectTimeout: NodeJS.Timeout;
 
-    const redirectTimer = setTimeout(() => {
-      router.push(Routes.LOGIN);
-    }, 4000);
+    const logOutUser = async () => {
+      await signOut({ redirect: false });
+      setIsLoggingOut(false);
+
+      reditectTimeout = setTimeout(() => router.push(Routes.LOGIN), 1000);
+    };
+
+    logOutUser();
 
     return () => {
-      clearTimeout(timer);
-      clearTimeout(redirectTimer);
+      if (reditectTimeout) clearTimeout(reditectTimeout);
     };
   }, [router]);
 
